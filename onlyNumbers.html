@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tira espaço</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        input[id="code"] {
+            position: relative;
+            top: 30px;
+            width: 400px;
+            height: 30px;
+            display: block;
+            padding-left: 10px;
+            outline: none;
+        }
+
+        input[id="final"] {
+            width: 400px;
+            height: 30px;
+            display: block;
+            top: 60px;
+            padding-left: 10px;
+            position: relative;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            width: 70px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 45px;
+        }
+
+        button {
+            float: right;
+            position: relative;
+            right: 400px;
+            bottom: 4px;
+	    width: 60px;
+        }
+    </style>
+
+    <input type="text" id="code" placeholder="Place your code here!" />
+    <input type="submit" id="convert" value="convert" onclick="returnCode()" />
+    <input type="text" id="final" placeholder="Your ready-to-go code will show up here!" />
+    <button onclick="copy()">Copy</button>
+
+    <script>
+        let oldCode = document.getElementById("code");
+        oldCode.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                document.getElementById("convert").click();
+                }
+        });
+        function returnCode() {
+            let oldCode = document.getElementById("code").value.replaceAll(" ", "").split("").map(Number).filter(Number.isFinite).join("");
+            document.getElementById("final").value = oldCode;
+            oldCode = document.getElementById("code").value='';
+            let input2 = document.querySelector("#final");
+            input2.readOnly = true;
+        }
+    </script>
+
+    <script>
+        function copy() {
+            let input = document.getElementById("final").value
+            navigator.clipboard.writeText(input);
+        }
+    </script>
+
+</body>
+
+</html>
